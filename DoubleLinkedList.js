@@ -69,13 +69,18 @@ class DoubleLinkedList {
         }
         while(true) {
             if (iteration.data === data) {
+                /**
+                 * 삭제 로직 작성
+                 * iteration이 head인 경우 head를 삭제하고 head.next를 head로 만든다.
+                 */
+                
+            }
+            if (iteration.next === this.head) {
                 break;
             } 
             iteration = iteration.next;
         }
-        
         return data; 
-
     }
 }
 
