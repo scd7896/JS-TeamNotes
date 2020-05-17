@@ -39,10 +39,11 @@ class DoubleLinkedList {
      */
     allSearch() {
         let iteration = this.head;
-        if (iteration === null) {
+        if (!iteration) {
             console.log('리스트가 비었습니다');
             return;
         }
+        
         while(true) {
             console.log(iteration.data);
             iteration = iteration.next;
@@ -54,6 +55,9 @@ class DoubleLinkedList {
      * 링크드 리스트의 제일 마지막 아이템을 리턴한다.
      */
     getLastNodeData() {
+        if (!this.head) {
+            return null;
+        }
         return this.head.prev.data;
     };
 
@@ -73,7 +77,23 @@ class DoubleLinkedList {
                  * 삭제 로직 작성
                  * iteration이 head인 경우 head를 삭제하고 head.next를 head로 만든다.
                  */
-                
+                if (iteration === this.head) {
+                    if (this.head === this.head.next) {
+                        this.head = null;
+                    } else {
+                        this.head.next.prev = this.head.prev;
+                        this.head.prev.next = this.head.next;
+                        this.head = this.head.next;
+                    }
+                } else {
+                    iteration.prev.next = iteration.next;
+                    iteration.next.prev = iteration.prev;
+                    iteration.data = null;
+                    iteration.prev = null;
+                    iteration.next = null;
+                    iteration = null;
+                }
+                break;
             }
             if (iteration.next === this.head) {
                 break;
@@ -86,9 +106,21 @@ class DoubleLinkedList {
 
 const init = () => {
     const ll = new DoubleLinkedList()
-    ll.insertLast('김서버')
-    ll.insertLast('링크드리스트 추가')
+    ll.insertLast('1')
+    ll.insertLast('2')
+    ll.insertLast('3')
+    ll.insertLast('4')
+    ll.insertLast('5')
     ll.allSearch();
+    console.log('삭제',ll.targetDataRemove('1'));
+    console.log('삭제',ll.targetDataRemove('2'));
+    console.log('삭제',ll.targetDataRemove('3'));
+    console.log('삭제',ll.targetDataRemove('4'));
+    console.log('삭제',ll.targetDataRemove('5'));
+    
+    ll.allSearch();
+    console.log('삭제',ll.targetDataRemove('5'));
+    ll.insertLast('12')
     console.log('마지막데이터는', ll.getLastNodeData());
 }
 
