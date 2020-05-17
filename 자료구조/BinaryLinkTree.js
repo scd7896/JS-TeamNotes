@@ -60,10 +60,30 @@ const postOrder = (node) => {
   postOrder(node.right)
   console.log(node.data);
 }
+
+const levelOrdder = (node) => {
+  if (node === null) {
+    return ;
+  }
+  const queue = [];
+  queue.push(node);
+  while (queue.length !== 0) {
+    const target = queue.shift();
+    if (target === null) {
+      continue
+    }
+    console.log(target.data);
+    queue.push(target.left);
+    queue.push(target.right);
+  }
+}
 const init = () => {
   const binary = new BinaryTree();
   binary.insertData(50);
   binary.insertData(25);
+  binary.insertData(10);
+  binary.insertData(15);
+  binary.insertData(30);
   binary.insertData(70);
   binary.insertData(60);
   console.log('전위 순회');
@@ -72,6 +92,8 @@ const init = () => {
   inOrder(binary.root);
   console.log('후위 순회');
   postOrder(binary.root);
+  console.log('레벨 순회라 쓰고 bfs라고 읽는다');
+  levelOrdder(binary.root)
 }
 
 init();
