@@ -1,70 +1,70 @@
 const map = [
-  [0,1,0,1,1,1,0],
-  [0,0,0,1,0,0,0],
-  [1,1,0,0,0,1,0],
-  [1,0,1,0,0,1,0],
-  [0,0,0,0,0,1,1],
-  [1,1,1,1,0,0,0],
-  [1,1,1,1,1,1,0]
-]
+	[0, 1, 0, 1, 1, 1, 0],
+	[0, 0, 0, 1, 0, 0, 0],
+	[1, 1, 0, 0, 0, 1, 0],
+	[1, 0, 1, 0, 0, 1, 0],
+	[0, 0, 0, 0, 0, 1, 1],
+	[1, 1, 1, 1, 0, 0, 0],
+	[1, 1, 1, 1, 1, 1, 0],
+];
 
 const pushLoc = (stack, x, y, moveLocation) => {
-  if (x < 0 || y < 0) {
-    return
-  }  
-  if (x === map.length || y === map.length) {
-    return;
-  }
-  if (map[x][y] !== 1) {
-    stack.push([x,y])
-    moveLocation.push([x,y])
-  }
-}
+	if (x < 0 || y < 0) {
+		return;
+	}
+	if (x === map.length || y === map.length) {
+		return;
+	}
+	if (map[x][y] === 0) {
+		stack.push([x, y]);
+		moveLocation.push([x, y]);
+	}
+};
+
+const isLast = (here, size) => here[0] === size - 1 && here[1] === size - 1;
 
 const calculatorValue = (map, size) => {
-  const moveLocation = []
-  const stack = []
-  map[size-1][size-1] = 3;
-  let x;
-  let y;
-  let here = [0,0]
-  
-  while (map[here[0]][here[1]] !== 3) {
-    [x,y] = here
-    map[x][y] = 1;
-    let tmp = stack.length;
-    pushLoc(stack, x - 1, y, moveLocation)
-    pushLoc(stack, x + 1, y, moveLocation)
-    pushLoc(stack, x, y + 1, moveLocation)
-    pushLoc(stack, x, y - 1, moveLocation)
-    if (stack.length === 0) {
-      console.log('실패');
-      return;
-    } else {
-      here = stack.pop();
-    }
-  }
+	const moveLocation = [];
+	const stack = [];
+	let x = 0;
+	let y = 0;
+	let here = [0, 0];
+	let round = 0;
 
-  console.log(moveLocation)
-  let lastRocation = null;
-  let answer = 0;
-  let now = [0,0]
-  
-  // moveLocation.map((rocation) => {
-  //   if (lastRocation === null) {
-  //     answer = 100;
-  //     lastRocation = rocation
-  //     return;
-  //   }
+	while (!isLast(here, size)) {
+		map[x][y] = round + 1;
+		pushLoc(stack, x - 1, y, moveLocation);
+		pushLoc(stack, x + 1, y, moveLocation);
+		pushLoc(stack, x, y + 1, moveLocation);
+		pushLoc(stack, x, y - 1, moveLocation);
+		if (stack.length === 0) {
+			console.log("실패");
+			return;
+		} else {
+			here = stack.pop();
+			round = map[x][y];
+			[x, y] = here;
+		}
+	}
 
-  //   if (lastRocation === rocation) {
-  //     answer += 100;
-  //   } else {
-  //     answer += 500;
-  //     lastRocation = rocation
-  //   }
-  // })
-  // console.log(answer);
-}
+	let lastRocation = null;
+	let answer = 0;
+	console.log(stack);
+	moveLocation.map((rocation) => {
+		if (lastRocation === null) {
+			answer = 100;
+			lastRocation = rocation;
+			return;
+		}
 
-calculatorValue(map, map.length)
+		if (lastRocation === rocation) {
+			answer += 100;
+		} else {
+			answer += 500;
+			lastRocation = rocation;
+		}
+	});
+	console.log(answer);
+};
+
+calculatorValue(map, map.length);
