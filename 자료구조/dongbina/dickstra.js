@@ -42,17 +42,17 @@ const dijkstra = (start) => {
 	const q = new Heap((a, b) => {
 		return a[1] < b[1];
 	});
-	q.insert_heap([start, 0]);
+	q.insertHeap([start, 0]);
 	distance[start] = 0;
 	while (q.getLength()) {
-		const [now, dist] = q.delete_heap();
+		const [now, dist] = q.deleteHeap();
 		if (distance[now] < dist) continue;
 		graph[now].map((i) => {
 			const cost = dist + i[1];
 
 			if (cost < distance[i[0]]) {
 				distance[i[0]] = cost;
-				q.insert_heap([i[0], cost]);
+				q.insertHeap([i[0], cost]);
 			}
 		});
 	}

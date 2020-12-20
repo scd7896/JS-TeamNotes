@@ -8,7 +8,7 @@ class Heap {
 		this.compare = compare || defaultCompare;
 	}
 
-	insert_heap(item) {
+	insertHeap(item) {
 		let index = this.heap.length;
 
 		while (index !== 1 && this.compare(item, this.heap[parseInt(index / 2, 10)])) {
@@ -19,7 +19,7 @@ class Heap {
 		this.length++;
 	}
 
-	delete_heap() {
+	deleteHeap() {
 		const item = this.heap[1];
 		let length = this.length--;
 		let tmp = this.heap[length];
@@ -47,34 +47,34 @@ class Heap {
 }
 
 // const testHeap = new Heap((a, b) => a > b);
-// testHeap.insert_heap(3); //
-// testHeap.insert_heap(4); //
-// testHeap.insert_heap(1); //
-// testHeap.insert_heap(5); //
-// testHeap.insert_heap(2); //
-// testHeap.insert_heap(10); //
-// testHeap.insert_heap(4); //
-// testHeap.insert_heap(9); //
-// testHeap.insert_heap(4); //
-// testHeap.insert_heap(8); //
-// testHeap.insert_heap(7); //
-// testHeap.insert_heap(6); //
-// testHeap.insert_heap(0); //
+// testHeap.insertHeap(3); //
+// testHeap.insertHeap(4); //
+// testHeap.insertHeap(1); //
+// testHeap.insertHeap(5); //
+// testHeap.insertHeap(2); //
+// testHeap.insertHeap(10); //
+// testHeap.insertHeap(4); //
+// testHeap.insertHeap(9); //
+// testHeap.insertHeap(4); //
+// testHeap.insertHeap(8); //
+// testHeap.insertHeap(7); //
+// testHeap.insertHeap(6); //
+// testHeap.insertHeap(0); //
 
 // console.log(testHeap.heap);
-// console.log(testHeap.delete_heap()); // 0
-// console.log(testHeap.delete_heap()); // 1
-// console.log(testHeap.delete_heap()); // 2
-// console.log(testHeap.delete_heap()); // 3
-// console.log(testHeap.delete_heap()); // 4
-// console.log(testHeap.delete_heap()); // 4
-// console.log(testHeap.delete_heap()); // 4
-// console.log(testHeap.delete_heap()); // 5
-// console.log(testHeap.delete_heap()); // 6
-// console.log(testHeap.delete_heap()); // 7
-// console.log(testHeap.delete_heap()); // 8
-// console.log(testHeap.delete_heap()); // 9
-// console.log(testHeap.delete_heap()); // 10
+// console.log(testHeap.deleteHeap()); // 0
+// console.log(testHeap.deleteHeap()); // 1
+// console.log(testHeap.deleteHeap()); // 2
+// console.log(testHeap.deleteHeap()); // 3
+// console.log(testHeap.deleteHeap()); // 4
+// console.log(testHeap.deleteHeap()); // 4
+// console.log(testHeap.deleteHeap()); // 4
+// console.log(testHeap.deleteHeap()); // 5
+// console.log(testHeap.deleteHeap()); // 6
+// console.log(testHeap.deleteHeap()); // 7
+// console.log(testHeap.deleteHeap()); // 8
+// console.log(testHeap.deleteHeap()); // 9
+// console.log(testHeap.deleteHeap()); // 10
 // console.log(testHeap.heap);
 
 module.exports = {
