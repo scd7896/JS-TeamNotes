@@ -1,19 +1,20 @@
-const { findParent, unionParent } = require("./서로소");
+const { UnionFind } = require("./UnionFind");
 const kruskal = (arr, max) => {
 	arr.sort((a, b) => a[2] - b[2]);
 	let result = 0;
-	const parent = new Array(max + 1).fill(0);
-	for (let i = 1; i <= max; i++) {
-		parent[i] = i;
-	}
+	let total = 0;
+	const uf = new UnionFind(max + 1);
 
 	for (let i = 0; i < arr.length; i++) {
-		if (findParent(parent, arr[i][0]) !== findParent(parent, arr[i][1])) {
-			unionParent(parent, arr[i][0], arr[i][1]);
+		total += arr[i][2];
+		if (uf.isConnect(arr[i][0], arr[i][1])) {
+			console.log(arr[i][0], arr[i][1], arr[i][2]);
+		} else {
+			uf.union(arr[i][0], arr[i][1]);
 			result += arr[i][2];
 		}
 	}
-
+	console.log(total, result);
 	return result;
 };
 
