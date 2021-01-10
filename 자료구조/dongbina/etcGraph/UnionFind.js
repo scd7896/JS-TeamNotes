@@ -30,7 +30,35 @@ class UnionFind {
 	}
 }
 
+class UnionFindGroup {
+	constructor(N) {
+		this.parents = new Array(N);
+		for (let i = 0; i < N; i++) this.parents[i] = i;
+	}
+
+	isConnect(x, y) {
+		return this.find(x) === this.find(y);
+	}
+
+	union(x, y) {
+		const xParent = this.find(x);
+		const yParent = this.find(y);
+		this.parents[yParent] = xParent;
+		for (let i = 0; i < this.parents.length; i++) {
+			if (this.parents[i] === xParent || this.parents[i] === yParent) {
+				this.parents[i] = this.parents[this.find(x)];
+			}
+		}
+	}
+
+	find(x) {
+		if (x != this.parents[x]) this.parents[x] = this.find(this.parents[x]);
+		return this.parents[x];
+	}
+}
+
 module.exports = {
 	findCycle,
 	UnionFind,
+	UnionFindGroup,
 };
